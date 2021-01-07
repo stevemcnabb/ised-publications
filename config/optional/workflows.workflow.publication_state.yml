@@ -1,0 +1,113 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.publication
+  module:
+    - content_moderation
+id: publication_state
+label: 'Publication State'
+type: content_moderation
+type_settings:
+  states:
+    completed:
+      published: false
+      default_revision: true
+      label: Completed
+      weight: 1
+    draft:
+      label: Draft
+      published: false
+      default_revision: false
+      weight: -4
+    hold_no_gccn_match:
+      published: false
+      default_revision: false
+      label: 'HOLD - No GCCN Match'
+      weight: -1
+    hold_no_record:
+      published: false
+      default_revision: false
+      label: 'HOLD - No Record'
+      weight: 0
+    in_progress:
+      published: false
+      default_revision: false
+      label: 'In Progress'
+      weight: -3
+    published:
+      label: Published
+      published: true
+      default_revision: true
+      weight: 2
+    waiting_for_registration:
+      published: false
+      default_revision: false
+      label: 'Waiting for Registration'
+      weight: -2
+  transitions:
+    create_new_draft:
+      label: 'Set Status Back to Draft'
+      to: draft
+      weight: -2
+      from:
+        - draft
+        - hold_no_gccn_match
+        - hold_no_record
+        - in_progress
+        - published
+        - waiting_for_registration
+    hold_no_record:
+      label: 'HOLD - No Record'
+      from:
+        - draft
+        - in_progress
+      to: hold_no_record
+      weight: 3
+    hold_publication_no_gccn_match:
+      label: 'HOLD publication - no GCCN match'
+      from:
+        - draft
+        - in_progress
+      to: hold_no_gccn_match
+      weight: 2
+    mark_publication_as_in_progress:
+      label: 'Publication In Progress'
+      from:
+        - draft
+        - published
+      to: in_progress
+      weight: -1
+    publication_data_completed:
+      label: 'Publication Data Completed'
+      from:
+        - hold_no_gccn_match
+        - hold_no_record
+        - in_progress
+        - waiting_for_registration
+      to: completed
+      weight: 4
+    publish:
+      label: Publish
+      to: published
+      weight: 0
+      from:
+        - draft
+        - published
+    publish_live:
+      label: 'Publish Live'
+      from:
+        - completed
+      to: published
+      weight: 5
+    waiting_for_registration:
+      label: 'Waiting for Registration'
+      from:
+        - draft
+        - in_progress
+      to: waiting_for_registration
+      weight: 1
+  entity_types:
+    node:
+      - publication
+  default_moderation_state: draft
