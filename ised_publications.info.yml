@@ -1,0 +1,6 @@
+name: ISED Publications
+type: module
+description: ISED Publications Catalogue
+package: ISED
+core: 8.x
+core_version_requirement: ^8 || ^9

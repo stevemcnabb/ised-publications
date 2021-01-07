@@ -1,0 +1,15 @@
+ised_publications.example:
+  path: '/ised-publications/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\ised_publications\Controller\IsedPublicationsController::build'
+  requirements:
+    _permission: 'access content'
+
+ised_publications.settings_form:
+  path: '/admin/config/system/ised-publications'
+  defaults:
+    _title: 'ISED Publications settings'
+    _form: 'Drupal\ised_publications\Form\SettingsForm'
+  requirements:
+    _permission: 'administer ised_publications configuration'

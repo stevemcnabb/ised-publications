@@ -1,0 +1,4 @@
+administer ised_publications configuration:
+  title: 'Administer ised_publications configuration'
+  description: 'Optional description.'
+  restrict access: true
