@@ -1,6 +1,9 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - ised_publications
   module:
     - node
 id: node.field_if_other_is_selected_indic

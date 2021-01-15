@@ -3,6 +3,9 @@ status: true
 dependencies:
   config:
     - node.type.publication
+  enforced:
+    module:
+      - ised_publications
 id: node.publication.title
 field_name: title
 entity_type: node

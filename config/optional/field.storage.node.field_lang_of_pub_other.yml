@@ -1,6 +1,9 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - ised_publications
   module:
     - node
 id: node.field_lang_of_pub_other
