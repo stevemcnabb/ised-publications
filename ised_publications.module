@@ -1,10 +1,22 @@
 <?php
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * @file
  * Primary module hooks for ISED Publications module.
- *
- * @DCG
- * This file is no longer required in Drupal 8.
- * @see https://www.drupal.org/node/2217931
  */
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Allows customization of publication forms.
+ */
+function ised_publications_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  if ($form_id === 'node_publication_form') {
+    \Drupal::messenger()->addMessage("TODO - add conditional validation to 'Other' fields + their matching dropdowns");
+
+  }
+
+}
