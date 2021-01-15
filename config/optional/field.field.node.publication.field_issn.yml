@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_title_french
+    - field.storage.node.field_issn
     - node.type.publication
-id: node.publication.field_title_french
-field_name: field_title_french
+id: node.publication.field_issn
+field_name: field_issn
 entity_type: node
 bundle: publication
-label: 'Title French'
+label: ISSN
 description: ''
 required: false
 translatable: true

@@ -3,7 +3,24 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.publication.field_anticipated_release_date_m
+    - field.field.node.publication.field_anticipated_release_date_y
+    - field.field.node.publication.field_choose_sector_branch_or_ag
+    - field.field.node.publication.field_comments
+    - field.field.node.publication.field_contact_person
+    - field.field.node.publication.field_email
+    - field.field.node.publication.field_if_other_is_selected_indic
+    - field.field.node.publication.field_issn
+    - field.field.node.publication.field_issue_number
+    - field.field.node.publication.field_lang_of_pub_other
+    - field.field.node.publication.field_language_of_publication
+    - field.field.node.publication.field_publication_formats
+    - field.field.node.publication.field_series_title_english
+    - field.field.node.publication.field_series_title_french
+    - field.field.node.publication.field_telephone
+    - field.field.node.publication.field_this
     - field.field.node.publication.field_title_french
+    - field.field.node.publication.field_type_of_publication
     - node.type.publication
   module:
     - user
@@ -19,5 +36,22 @@ content:
     region: content
 hidden:
   content_moderation_control: true
+  field_anticipated_release_date_m: true
+  field_anticipated_release_date_y: true
+  field_choose_sector_branch_or_ag: true
+  field_comments: true
+  field_contact_person: true
+  field_email: true
+  field_if_other_is_selected_indic: true
+  field_issn: true
+  field_issue_number: true
+  field_lang_of_pub_other: true
+  field_language_of_publication: true
+  field_publication_formats: true
+  field_series_title_english: true
+  field_series_title_french: true
+  field_telephone: true
+  field_this: true
   field_title_french: true
+  field_type_of_publication: true
   langcode: true

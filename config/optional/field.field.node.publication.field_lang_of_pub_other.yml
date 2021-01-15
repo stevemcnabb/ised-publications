@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_lang_of_pub_other
+    - node.type.publication
+id: node.publication.field_lang_of_pub_other
+field_name: field_lang_of_pub_other
+entity_type: node
+bundle: publication
+label: 'If "Other" is selected, specify language of publication and quantity published (if printed)'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

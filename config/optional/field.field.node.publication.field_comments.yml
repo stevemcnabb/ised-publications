@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_title_french
+    - field.storage.node.field_comments
     - node.type.publication
-id: node.publication.field_title_french
-field_name: field_title_french
+id: node.publication.field_comments
+field_name: field_comments
 entity_type: node
 bundle: publication
-label: 'Title French'
+label: Comments
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string
+field_type: string_long

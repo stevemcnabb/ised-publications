@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_title_french
+    - field.storage.node.field_series_title_english
     - node.type.publication
-id: node.publication.field_title_french
-field_name: field_title_french
+id: node.publication.field_series_title_english
+field_name: field_series_title_english
 entity_type: node
 bundle: publication
-label: 'Title French'
+label: 'Series Title English'
 description: ''
 required: false
 translatable: true

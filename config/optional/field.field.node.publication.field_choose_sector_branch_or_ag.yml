@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_choose_sector_branch_or_ag
+    - node.type.publication
+  module:
+    - options
+id: node.publication.field_choose_sector_branch_or_ag
+field_name: field_choose_sector_branch_or_ag
+entity_type: node
+bundle: publication
+label: 'Choose Sector, Branch or Agency'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

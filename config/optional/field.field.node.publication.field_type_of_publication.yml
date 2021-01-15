@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_type_of_publication
+    - node.type.publication
+  module:
+    - options
+id: node.publication.field_type_of_publication
+field_name: field_type_of_publication
+entity_type: node
+bundle: publication
+label: 'Type of publication'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

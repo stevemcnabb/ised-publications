@@ -2,24 +2,158 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.publication.field_anticipated_release_date_m
+    - field.field.node.publication.field_anticipated_release_date_y
+    - field.field.node.publication.field_choose_sector_branch_or_ag
+    - field.field.node.publication.field_comments
+    - field.field.node.publication.field_contact_person
+    - field.field.node.publication.field_email
+    - field.field.node.publication.field_if_other_is_selected_indic
+    - field.field.node.publication.field_issn
+    - field.field.node.publication.field_issue_number
+    - field.field.node.publication.field_lang_of_pub_other
+    - field.field.node.publication.field_language_of_publication
+    - field.field.node.publication.field_publication_formats
+    - field.field.node.publication.field_series_title_english
+    - field.field.node.publication.field_series_title_french
+    - field.field.node.publication.field_telephone
+    - field.field.node.publication.field_this
     - field.field.node.publication.field_title_french
+    - field.field.node.publication.field_type_of_publication
     - node.type.publication
     - workflows.workflow.publication_state
   module:
     - content_moderation
+    - field_group
     - path
+    - telephone
+third_party_settings:
+  field_group:
+    group_ised_contact_information:
+      children:
+        - field_contact_person
+        - field_telephone
+        - field_email
+        - field_choose_sector_branch_or_ag
+        - field_if_other_is_selected_indic
+      parent_name: ''
+      weight: 0
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+      label: 'ISED contact information'
+    group_publication_information:
+      children:
+        - field_this
+        - title
+        - field_title_french
+        - field_language_of_publication
+        - field_lang_of_pub_other
+        - field_publication_formats
+        - group_anticipated_release_date
+      parent_name: ''
+      weight: 1
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+      label: 'Publication information'
+    group_anticipated_release_date:
+      children:
+        - field_anticipated_release_date_m
+        - field_anticipated_release_date_y
+      parent_name: group_publication_information
+      weight: 11
+      format_type: details
+      region: content
+      format_settings:
+        id: ''
+        classes: ised-anticipated-date-of-release-select-fieldgroup
+        description: ''
+        open: true
+        required_fields: true
+      label: 'Anticipated release date'
 id: node.publication.default
 targetEntityType: node
 bundle: publication
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 3
-    region: content
+  field_anticipated_release_date_m:
+    weight: 8
     settings: {  }
     third_party_settings: {  }
-  field_title_french:
+    type: options_select
+    region: content
+  field_anticipated_release_date_y:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_choose_sector_branch_or_ag:
+    weight: 31
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_comments:
+    weight: 33
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_contact_person:
+    weight: 28
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_email:
+    weight: 30
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+    region: content
+  field_if_other_is_selected_indic:
+    weight: 32
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_issn:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_issue_number:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_lang_of_pub_other:
     weight: 9
     settings:
       size: 60
@@ -27,67 +161,91 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  langcode:
-    type: language_select
-    weight: 1
-    region: content
-    settings:
-      include_locked: true
+  field_language_of_publication:
+    weight: 8
+    settings: {  }
     third_party_settings: {  }
+    type: options_select
+    region: content
+  field_publication_formats:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_series_title_english:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_series_title_french:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_telephone:
+    weight: 29
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+  field_this:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_title_french:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_type_of_publication:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   moderation_state:
     type: moderation_state_default
-    weight: 10
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 4
-    region: content
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 8
-    region: content
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 5
-    region: content
-    third_party_settings: {  }
-  title:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    region: content
-    third_party_settings: {  }
-  url_redirects:
     weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+  title:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

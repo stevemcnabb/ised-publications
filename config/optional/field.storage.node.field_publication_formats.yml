@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_publication_formats
+field_name: field_publication_formats
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Paper
+      label: Paper
+    -
+      value: 'Electronic (PDF)'
+      label: 'Electronic (PDF)'
+    -
+      value: DVD
+      label: DVD
+    -
+      value: CD-ROM
+      label: CD-ROM
+    -
+      value: 'Audio CD'
+      label: 'Audio CD'
+    -
+      value: Braille
+      label: Braille
+    -
+      value: 'Large Print'
+      label: 'Large Print'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

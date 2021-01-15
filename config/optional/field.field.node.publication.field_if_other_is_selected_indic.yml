@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_title_french
+    - field.storage.node.field_if_other_is_selected_indic
     - node.type.publication
-id: node.publication.field_title_french
-field_name: field_title_french
+id: node.publication.field_if_other_is_selected_indic
+field_name: field_if_other_is_selected_indic
 entity_type: node
 bundle: publication
-label: 'Title French'
+label: 'If "Other" is selected, indicate title of working group, panel or committee'
 description: ''
 required: false
 translatable: true

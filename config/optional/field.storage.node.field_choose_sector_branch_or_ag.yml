@@ -1,0 +1,68 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_choose_sector_branch_or_ag
+field_name: field_choose_sector_branch_or_ag
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Audit and Evaluation Branch'
+      label: 'Audit and Evaluation Branch'
+    -
+      value: 'Canadian Intellectual Property'
+      label: 'Canadian Intellectual Property'
+    -
+      value: SCMS
+      label: SCMS
+    -
+      value: 'Competition Bureau'
+      label: 'Competition Bureau'
+    -
+      value: 'Comptrollership and Administration Sector'
+      label: 'Comptrollership and Administration Sector'
+    -
+      value: 'Corporate and Portfolio Office'
+      label: 'Corporate and Portfolio Office'
+    -
+      value: 'Human Resources Branch'
+      label: 'Human Resources Branch'
+    -
+      value: 'Industry Sector'
+      label: 'Industry Sector'
+    -
+      value: 'Legal Services'
+      label: 'Legal Services'
+    -
+      value: 'Office of Consumer Affairs'
+      label: 'Office of Consumer Affairs'
+    -
+      value: 'Regional Operations'
+      label: 'Regional Operations'
+    -
+      value: 'Science and Innovation Sector'
+      label: 'Science and Innovation Sector'
+    -
+      value: 'Small Business Tourism and Marketplace Services'
+      label: 'Small Business Tourism and Marketplace Services'
+    -
+      value: 'Spectrum Information Technologies and Telecommunications'
+      label: 'Spectrum Information Technologies and Telecommunications'
+    -
+      value: 'Strategic Policy Sector'
+      label: 'Strategic Policy Sector'
+    -
+      value: Other
+      label: Other
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
