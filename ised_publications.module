@@ -17,6 +17,7 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
   if ($form_id === 'node_publication_form') {
 
     \Drupal::messenger()->addMessage("TODO - add conditional validation to 'Other' fields + their matching dropdowns");
+    \Drupal::messenger()->addMessage("TODO - fix inline formatting for estimated release date month and year");
 
     // Add the prefix / preamble 
     $form['group_ised_contact_information']['#prefix'] = '<div class="publications-form-preamble">';
