@@ -1,12 +1,12 @@
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - ised_publications
   config:
     - field.storage.node.field_telephone
     - node.type.publication
+  enforced:
+    module:
+      - ised_publications
   module:
     - telephone
 id: node.publication.field_telephone

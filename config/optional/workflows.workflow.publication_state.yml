@@ -1,11 +1,11 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.publication
   enforced:
     module:
       - ised_publications
-  config:
-    - node.type.publication
   module:
     - content_moderation
 id: publication_state

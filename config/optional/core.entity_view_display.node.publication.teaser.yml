@@ -1,9 +1,6 @@
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - ised_publications
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.publication.field_anticipated_release_date_m
@@ -25,6 +22,9 @@ dependencies:
     - field.field.node.publication.field_title_french
     - field.field.node.publication.field_type_of_publication
     - node.type.publication
+  enforced:
+    module:
+      - ised_publications
   module:
     - user
 id: node.publication.teaser

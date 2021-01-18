@@ -1,9 +1,6 @@
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - ised_publications
   config:
     - field.field.node.publication.field_anticipated_release_date_m
     - field.field.node.publication.field_anticipated_release_date_y
@@ -24,6 +21,9 @@ dependencies:
     - field.field.node.publication.field_title_french
     - field.field.node.publication.field_type_of_publication
     - node.type.publication
+  enforced:
+    module:
+      - ised_publications
   module:
     - options
     - user

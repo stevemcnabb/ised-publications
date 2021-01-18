@@ -1,19 +1,19 @@
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - ised_publications
   config:
     - field.storage.node.field_lang_of_pub_other
     - node.type.publication
+  enforced:
+    module:
+      - ised_publications
 id: node.publication.field_lang_of_pub_other
 field_name: field_lang_of_pub_other
 entity_type: node
 bundle: publication
 label: 'If "Other" is selected, specify language of publication and quantity published (if printed)'
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''

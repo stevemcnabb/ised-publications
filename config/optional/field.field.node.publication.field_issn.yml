@@ -1,12 +1,12 @@
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - ised_publications
   config:
     - field.storage.node.field_issn
     - node.type.publication
+  enforced:
+    module:
+      - ised_publications
 id: node.publication.field_issn
 field_name: field_issn
 entity_type: node
