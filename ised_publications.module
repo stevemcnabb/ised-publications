@@ -15,8 +15,49 @@ use Drupal\Core\Form\FormStateInterface;
 function ised_publications_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   if ($form_id === 'node_publication_form') {
+
     \Drupal::messenger()->addMessage("TODO - add conditional validation to 'Other' fields + their matching dropdowns");
 
-  }
+    // Add the prefix / preamble 
+    $form['group_ised_contact_information']['#prefix'] = '<div class="publications-form-preamble">';
+    $form['group_ised_contact_information']['#prefix'] .= '<span class="required-red-star">*</span>' . t('Indicates required information');
+    $form['group_ised_contact_information']['#prefix'] .= '<p>' . t('Do not use the "back" button to fill out multiple forms.') .'</p>';
 
+    $form['group_ised_contact_information']['#prefix'] .= '</div>';
+
+    $form['group_ised_contact_information']['#prefix'] .= '<div><br/><p><strong>';
+    $form['group_ised_contact_information']['#prefix'] .=  t('Purpose');
+    $form['group_ised_contact_information']['#prefix'] .=  ': </strong>';
+
+    $form['group_ised_contact_information']['#prefix'] .= t('For monograph (single publication), new and existing series');
+
+    $form['group_ised_contact_information']['#prefix'] .= '</p><p>';
+    $form['group_ised_contact_information']['#prefix'] .= t('Your application wil be sent to the <a href="http://publications.gc.ca/site/eng/programs/aboutDsp.html" target="_blank">Depository Services Program</a> at Public Services and Procurement.  The ISBN and Cataloge Number will be emailed to you and Creative Services within three business days, provided that there are no problems with the application.');
+    $form['group_ised_contact_information']['#prefix'] .= '</p></div><br/><br/>';
+
+    // Tweak inline form fields so their labels appear beside the field, not beneath the field
+    $form['field_contact_person']['#attributes']['class'][] = 'container-inline';
+    $form['field_email']['#attributes']['class'][] = 'container-inline';
+   
+
+     // kint($form);
+
+
+
+
+  }
 }
+
+
+/**
+ * Implements hook_preprocess_preprocess_page_title().
+ * 
+ * Set some overrides for the page title when creating a new publication 
+ */
+function ised_publications_preprocess_page_title(&$variables) {
+
+  if ($variables['title'] == 'Create Publication') {
+    $variables['title'] = 'Form 1 -- Application for ISBN and/or GC Catalogue Number via Innovation, Science and Economic Development Canada';
+  }
+}
+
