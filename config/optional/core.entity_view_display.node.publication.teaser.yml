@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.publication.field_issue_number
     - field.field.node.publication.field_lang_of_pub_other
     - field.field.node.publication.field_language_of_publication
+    - field.field.node.publication.field_pdf_document
     - field.field.node.publication.field_publication_formats
     - field.field.node.publication.field_series_title_english
     - field.field.node.publication.field_series_title_french
@@ -50,6 +51,7 @@ hidden:
   field_issue_number: true
   field_lang_of_pub_other: true
   field_language_of_publication: true
+  field_pdf_document: true
   field_publication_formats: true
   field_series_title_english: true
   field_series_title_french: true

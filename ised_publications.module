@@ -40,12 +40,9 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
     // Tweak inline form fields so their labels appear beside the field, not beneath the field
     $form['field_contact_person']['#attributes']['class'][] = 'container-inline';
     $form['field_email']['#attributes']['class'][] = 'container-inline';
-   
+    $form['field_telephone']['#attributes']['class'][] = 'container-inline';
 
-     // kint($form);
-
-
-
+    $form['#attached']['library'][] = 'ised_publications/node_form_publication';
 
   }
 }

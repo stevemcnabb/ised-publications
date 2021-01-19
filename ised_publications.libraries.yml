@@ -9,6 +9,12 @@ ised_publications:
     - core/drupalSettings
     - ised_publications/jquery-labelauty
 
+node_form_publication:
+  css:
+    component:
+      css/ised-publications-node-form.css: {} 
+      
+
 # Third-party library (self hosted).
 jquery-labelauty:
   remote: https://github.com/fntneves/jquery-labelauty

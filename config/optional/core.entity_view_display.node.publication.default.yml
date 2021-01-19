@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.publication.field_issue_number
     - field.field.node.publication.field_lang_of_pub_other
     - field.field.node.publication.field_language_of_publication
+    - field.field.node.publication.field_pdf_document
     - field.field.node.publication.field_publication_formats
     - field.field.node.publication.field_series_title_english
     - field.field.node.publication.field_series_title_french
@@ -25,6 +26,7 @@ dependencies:
     module:
       - ised_publications
   module:
+    - file
     - options
     - user
 id: node.publication.default
@@ -118,6 +120,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
+  field_pdf_document:
+    weight: 20
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
     region: content
   field_publication_formats:
     weight: 11

@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.publication.field_issue_number
     - field.field.node.publication.field_lang_of_pub_other
     - field.field.node.publication.field_language_of_publication
+    - field.field.node.publication.field_pdf_document
     - field.field.node.publication.field_publication_formats
     - field.field.node.publication.field_series_title_english
     - field.field.node.publication.field_series_title_french
@@ -28,6 +29,7 @@ dependencies:
   module:
     - content_moderation
     - field_group
+    - file
     - path
     - telephone
 third_party_settings:
@@ -169,6 +171,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_pdf_document:
+    weight: 34
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
     region: content
   field_publication_formats:
     weight: 10
