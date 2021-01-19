@@ -16,71 +16,63 @@ type_settings:
     completed:
       published: false
       default_revision: true
-      label: Completed
-      weight: 1
+      label: 'Completed but not published'
+      weight: 0
     draft:
-      label: Draft
       published: false
       default_revision: false
-      weight: -4
+      label: 'Draft (not used)'
+      weight: 2
     hold_no_gccn_match:
       published: false
       default_revision: false
       label: 'HOLD - No GCCN Match'
-      weight: -1
+      weight: -2
     hold_no_record:
       published: false
       default_revision: false
       label: 'HOLD - No Record'
-      weight: 0
+      weight: -1
     in_progress:
       published: false
       default_revision: false
       label: 'In Progress'
-      weight: -3
+      weight: -4
     published:
       label: Published
       published: true
       default_revision: true
-      weight: 2
+      weight: 1
     waiting_for_registration:
       published: false
       default_revision: false
       label: 'Waiting for Registration'
-      weight: -2
+      weight: -3
   transitions:
-    create_new_draft:
-      label: 'Set Status Back to Draft'
-      to: draft
-      weight: -2
+    draft_to_in_progress_initial_creation_:
+      label: 'In Progress (initial creation)'
       from:
-        - draft
-        - hold_no_gccn_match
-        - hold_no_record
         - in_progress
-        - published
-        - waiting_for_registration
+      to: in_progress
+      weight: -4
     hold_no_record:
       label: 'HOLD - No Record'
       from:
-        - draft
         - in_progress
       to: hold_no_record
-      weight: 3
+      weight: -1
     hold_publication_no_gccn_match:
       label: 'HOLD publication - no GCCN match'
       from:
-        - draft
         - in_progress
       to: hold_no_gccn_match
-      weight: 2
+      weight: -2
     mark_publication_as_in_progress:
-      label: 'Publication In Progress'
+      label: 'Roll Back to Publication In Progress'
       from:
-        - draft
         - published
       to: in_progress
-      weight: -1
+      weight: 2
     publication_data_completed:
       label: 'Publication Data Completed'
       from:
@@ -89,28 +81,20 @@ type_settings:
         - in_progress
         - waiting_for_registration
       to: completed
-      weight: 4
-    publish:
-      label: Publish
-      to: published
       weight: 0
-      from:
-        - draft
-        - published
     publish_live:
       label: 'Publish Live'
       from:
         - completed
       to: published
-      weight: 5
+      weight: 1
     waiting_for_registration:
       label: 'Waiting for Registration'
       from:
-        - draft
         - in_progress
       to: waiting_for_registration
-      weight: 1
+      weight: -3
   entity_types:
     node:
       - publication
-  default_moderation_state: draft
+  default_moderation_state: in_progress
