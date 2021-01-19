@@ -153,33 +153,49 @@ Has file attachment? $hasFileAttachment
 
 ";
 
-\Drupal::messenger()->addMessage("Email construction complete - now send to $recipientsRaw + $email");
-
-
-/*
-
   $mailManager = \Drupal::service('plugin.manager.mail');
   $module = 'ised_publications';
-  $key = 'node_insert'; // Replace with Your key
-  $to = \Drupal::currentUser()->getEmail();
-  $params['message'] = $message;
-  $params['title'] = $label;
-  $langcode = \Drupal::currentUser()->getPreferredLangcode();
+  $key = 'ised_publications_form_1_submit_notification'; 
+  $to = $recipientsRaw;
+  $params['body'] = $message;
+  $params['title'] = $subject;
+  //$langcode = \Drupal::currentUser()->getPreferredLangcode();
+  $langcode = 'en';
   $send = true;
 
   $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+
+  // Try sendmail mail manually
+ // $result = mail($to, $subject , $message , '', '');
+ //drupal_mail($module, $key, $to, $language, $params = array());
+ // \Drupal::logger('mail-log')->notice("DID IT WORK? $result");
+
+  
   if ($result['result'] != true) {
-    $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
-    drupal_set_message($message, 'error');
-    \Drupal::logger('mail-log')->error($message);
-    return;
-}
-
-  \Drupal::logger('ised_publications')->notice("Created email: $message");
-*/
-
-
+      $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
+      drupal_set_message($message, 'error');
+      \Drupal::logger('mail-log')->error($message . '  ' . json_encode($result));
+      return;
+    }
+    
   }
 }
 
+/**
+ * Implements hook_mail().
+ */
+function ised_publications_mail($key, &$message, $params) {
 
+  if ($key == 'ised_publications_form_1_submit_notification') {
+
+
+  
+    \Drupal::logger('ised_publications')->notice('Attempting to send mail...');
+
+      $message['from'] = 'do-not-reply@canada.ca';
+      $message['reply-to'] = 'do-not-reply@canada.ca';
+      $message['body'] = [ "whoopeee"];
+     // $message['message'] = 'also test';
+
+  }
+}
