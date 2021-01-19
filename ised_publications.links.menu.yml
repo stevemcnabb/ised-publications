@@ -1,0 +1,6 @@
+ised_publications.settings:
+  title: ISED Publications Settings
+  description: Configure ISED Publications Settings
+  parent: system.admin_config_system
+  route_name: ised_publications.settings
+  weight: 10

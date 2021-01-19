@@ -13,3 +13,11 @@ ised_publications.settings_form:
     _form: 'Drupal\ised_publications\Form\SettingsForm'
   requirements:
     _permission: 'administer ised_publications configuration'
+
+ised_publications.settings:
+  path: '/admin/config/system/ised_publications'
+  defaults:
+    _title: 'ISED Publications Settings'
+    _form: 'Drupal\ised_publications\Form\SettingsForm'
+  requirements:
+    _permission: 'administer site configuration'

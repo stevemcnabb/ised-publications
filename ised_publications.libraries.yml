@@ -12,8 +12,13 @@ ised_publications:
 node_form_publication:
   css:
     component:
-      css/ised-publications-node-form.css: {} 
-      
+      css/ised-publications-node-form.css: {}
+
+node_form_1_publication_anonymous:
+  css:
+    component:
+      css/ised-publications-form-one-anonymous.css: {}
+
 
 # Third-party library (self hosted).
 jquery-labelauty:

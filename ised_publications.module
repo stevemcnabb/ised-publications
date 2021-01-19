@@ -44,6 +44,12 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
 
     $form['#attached']['library'][] = 'ised_publications/node_form_publication';
 
+    // If user is anonymous, hide things we don't want them to see
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+    if ($user->id() == 0) {
+      $form['revision_information']['#access'] = FALSE;
+      $form['moderation_state']['#access'] = FALSE;
+    }
   }
 }
 
@@ -59,4 +65,96 @@ function ised_publications_preprocess_page_title(&$variables) {
     $variables['title'] = 'Form 1 -- Application for ISBN and/or GC Catalogue Number via Innovation, Science and Economic Development Canada';
   }
 }
+
+/**
+ * Implements hook_entity_insert()
+ */
+function ised_publications_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+
+  $bundle = $entity->bundle();
+  
+  if($bundle == 'publication') {
+    $recipientsRaw = \Drupal::config('ised_publications.settings')->get('form_1_email_notice_recipients');
+    \Drupal::messenger()->addMessage("SEE ITEM OF bundle type $bundle READY TO SEND NOTIFICATION TO $recipientsRaw");
+
+    $subject = 'Application for ISBN and Cat. No - Demande de ISBN et de o de cat. / ICWE-BVVS3P';
+    $contactPerson = $entity->field_contact_person->getString();
+    
+  //  $telephone = $entity->get('field_telephone')->value();
+   // $email = $entity->get('field_email')->value();
+
+    // Need iterator
+//    $sectorBranchOrAgency = $entity->get('field_choose_sector_branch_or_ag')->value();
+
+
+
+    
+    /*
+
+
+$sectorBranchOrAgencyOther
+$freeOrPriced
+$englishTitle
+$frenchTitle
+$languageOfPublication
+$languageOfPublicationOther
+$publicationFormats
+$anticipatedReleaseMonth
+$anticpatedReleaseYear
+$typeOfPublication 
+$seriesTitleEnglish
+$seriesTitleFrench
+$issn
+$issueNumber
+$comments
+$hasFileAttachment
+    */
+
+    $message = "ICCAT-ID: ICWE-BVVS3P
+
+Issuing Agency:  Innovation, Science and Economic Development Canada
+Contact Person: $contactPerson
+Telephone: $telephone
+Email: $email
+
+Choose Sector, Branch or Agency: $sectorBranchOrAgency
+If 'Other' is selected, indicate title of working group, panel or committee: $sectorBranchOrAgencyOther
+
+
+This publication is: $freeOrPriced
+
+English title: $englishTitle
+French title: $frenchTitle
+
+Language: $languageOfPublication
+If 'Other' is selected, specify language of publication and quantity published (if printed): $languageOfPublicationOther
+
+Publication formats: $publicationFormats
+
+Anticipated Release Month: $anticipatedReleaseMonth Anticipated Release Year: $anticpatedReleaseYear
+
+Type of Publication: $typeOfPublication
+
+Series title - English: $seriesTitleEnglish
+Series title - French: $seriesTitleFrench
+ISSN:  $issn
+Issue Number: $issueNumber
+
+Comments:
+$comments
+
+Has file attachment? $hasFileAttachment
+
+
+
+
+";
+
+
+  \Drupal::logger('ised_publications')->notice("Created email: $message");
+
+
+  }
+}
+
 
