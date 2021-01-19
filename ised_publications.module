@@ -18,7 +18,7 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
 
     \Drupal::messenger()->addMessage("TODO - add conditional validation to 'Other' fields + their matching dropdowns");
     \Drupal::messenger()->addMessage("TODO - fix inline formatting for estimated release date month and year");
-    \Drupal::messenger()->addMessage("TODO - remove revision log entry for anon user");
+    
 
     // Add the prefix / preamble 
     $form['group_ised_contact_information']['#prefix'] = '<div class="publications-form-preamble">';
@@ -27,14 +27,14 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
 
     $form['group_ised_contact_information']['#prefix'] .= '</div>';
 
-    $form['group_ised_contact_information']['#prefix'] .= '<div><br/><p><strong>';
+    $form['group_ised_contact_information']['#prefix'] .= '<div><p><strong>';
     $form['group_ised_contact_information']['#prefix'] .=  t('Purpose');
     $form['group_ised_contact_information']['#prefix'] .=  ': </strong>';
 
     $form['group_ised_contact_information']['#prefix'] .= t('For monograph (single publication), new and existing series');
 
     $form['group_ised_contact_information']['#prefix'] .= '</p><p>';
-    $form['group_ised_contact_information']['#prefix'] .= t('Your application wil be sent to the <a href="http://publications.gc.ca/site/eng/programs/aboutDsp.html" target="_blank">Depository Services Program</a> at Public Services and Procurement.  The ISBN and Cataloge Number will be emailed to you and Creative Services within three business days, provided that there are no problems with the application.');
+    $form['group_ised_contact_information']['#prefix'] .= t('Your application wil be sent to the <a href="http://publications.gc.ca/site/eng/programs/aboutDsp.html" title="Depository Services Program" target="_blank">Depository Services Program</a> at Public Services and Procurement.  The ISBN and Cataloge Number will be emailed to you and Creative Services within three business days, provided that there are no problems with the application.');
     $form['group_ised_contact_information']['#prefix'] .= '</p></div><br/><br/>';
 
     // Tweak inline form fields so their labels appear beside the field, not beneath the field
@@ -79,9 +79,31 @@ function ised_publications_entity_insert(Drupal\Core\Entity\EntityInterface $ent
 
     $subject = 'Application for ISBN and Cat. No - Demande de ISBN et de o de cat. / ICWE-BVVS3P';
     $contactPerson = $entity->field_contact_person->getString();
+    $telephone = $entity->field_telephone->getString();
+    $email = $entity->field_email->getString();
+
+    $sectorBranchOrAgency = $entity->field_choose_sector_branch_or_ag->getString();
+    $sectorBranchOrAgencyOther = $entity->field_if_other_is_selected_indic->getString();
+    $freeOrPriced = $entity->field_this->getString();
+    $englishTitle = $entity->title->getString();
+    $frenchTitle = $entity->field_title_french->getString();
+    $languageOfPublication = $entity->field_language_of_publication->getString();
+    $languageOfPublicationOther = $entity->field_lang_of_pub_other->getString();
     
-  //  $telephone = $entity->get('field_telephone')->value();
-   // $email = $entity->get('field_email')->value();
+
+
+    $publicationFormats = 'TODO';
+    $anticipatedReleaseMonth = 'TODO';
+    $anticpatedReleaseYear = 'TODO';
+    $typeOfPublication = 'TODO';
+    $seriesTitleEnglish = 'TODO';
+    $seriesTitleFrench = 'TODO';
+    $issn = 'TODO';
+    $issueNumber = 'TODO';
+    $comments = 'TODO';
+    $hasFileAttachment = 'TODO';
+
+
 
     // Need iterator
 //    $sectorBranchOrAgency = $entity->get('field_choose_sector_branch_or_ag')->value();
