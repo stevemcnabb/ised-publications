@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Mail\MailManagerInterface;
 
 /**
  * @file
@@ -75,8 +76,7 @@ function ised_publications_entity_insert(Drupal\Core\Entity\EntityInterface $ent
   
   if($bundle == 'publication') {
     $recipientsRaw = \Drupal::config('ised_publications.settings')->get('form_1_email_notice_recipients');
-    \Drupal::messenger()->addMessage("SEE ITEM OF bundle type $bundle READY TO SEND NOTIFICATION TO $recipientsRaw");
-
+   
     $subject = 'Application for ISBN and Cat. No - Demande de ISBN et de o de cat. / ICWE-BVVS3P';
     $contactPerson = $entity->field_contact_person->getString();
     $telephone = $entity->field_telephone->getString();
@@ -89,48 +89,32 @@ function ised_publications_entity_insert(Drupal\Core\Entity\EntityInterface $ent
     $frenchTitle = $entity->field_title_french->getString();
     $languageOfPublication = $entity->field_language_of_publication->getString();
     $languageOfPublicationOther = $entity->field_lang_of_pub_other->getString();
+    $publicationFormats = $entity->field_publication_formats->getString();
+    $anticipatedReleaseMonth = $entity->field_anticipated_release_date_m->getString();
+    $anticpatedReleaseYear = $entity->field_anticipated_release_date_y->getString();
+    $typeOfPublication = $entity->field_type_of_publication->getString();
+    $seriesTitleEnglish = $entity->field_series_title_english->getString();
+    $seriesTitleFrench = $entity->field_series_title_french->getString();
+    $issn =  $entity->field_issn->getString();
+    $issueNumber = $entity->field_issue_number->getString();
+    $comments = $entity->field_comments->getString();
     
+    $hasFileAttachment = '';
 
+    if(is_array($entity->field_pdf_document->getValue()[0])) {
+      
+      $fid = $entity->field_pdf_document->getValue()[0]['target_id'];
 
-    $publicationFormats = 'TODO';
-    $anticipatedReleaseMonth = 'TODO';
-    $anticpatedReleaseYear = 'TODO';
-    $typeOfPublication = 'TODO';
-    $seriesTitleEnglish = 'TODO';
-    $seriesTitleFrench = 'TODO';
-    $issn = 'TODO';
-    $issueNumber = 'TODO';
-    $comments = 'TODO';
-    $hasFileAttachment = 'TODO';
+      if(is_numeric($fid) && $fid > 0) {
+        $file = \Drupal\file\Entity\File::load($fid);
+        $hasFileAttachment = t('Yes'); 
+        $hasFileAttachment .= ' (' . $file->getFilename() .')';
+      }
+    }
+    else {
 
-
-
-    // Need iterator
-//    $sectorBranchOrAgency = $entity->get('field_choose_sector_branch_or_ag')->value();
-
-
-
-    
-    /*
-
-
-$sectorBranchOrAgencyOther
-$freeOrPriced
-$englishTitle
-$frenchTitle
-$languageOfPublication
-$languageOfPublicationOther
-$publicationFormats
-$anticipatedReleaseMonth
-$anticpatedReleaseYear
-$typeOfPublication 
-$seriesTitleEnglish
-$seriesTitleFrench
-$issn
-$issueNumber
-$comments
-$hasFileAttachment
-    */
+      $hasFileAttachment = t('No');
+    }
 
     $message = "ICCAT-ID: ICWE-BVVS3P
 
@@ -167,13 +151,32 @@ $comments
 
 Has file attachment? $hasFileAttachment
 
-
-
-
 ";
 
+\Drupal::messenger()->addMessage("Email construction complete - now send to $recipientsRaw + $email");
+
+
+/*
+
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $module = 'ised_publications';
+  $key = 'node_insert'; // Replace with Your key
+  $to = \Drupal::currentUser()->getEmail();
+  $params['message'] = $message;
+  $params['title'] = $label;
+  $langcode = \Drupal::currentUser()->getPreferredLangcode();
+  $send = true;
+
+  $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+  if ($result['result'] != true) {
+    $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
+    drupal_set_message($message, 'error');
+    \Drupal::logger('mail-log')->error($message);
+    return;
+}
 
   \Drupal::logger('ised_publications')->notice("Created email: $message");
+*/
 
 
   }
