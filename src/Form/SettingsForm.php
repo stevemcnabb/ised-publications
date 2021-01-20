@@ -33,8 +33,17 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Form 1 Email Notice Recipients'),
       '#default_value' => $this->config('ised_publications.settings')
         ->get('form_1_email_notice_recipients'),
-      '#description' => $this->t('Email addresses separated by commas who should receive notifications when new publications are submitted'),
+      '#description' => $this->t('Email addresses separated by commas who should receive "to" notifications when new publications are submitted'),
     ];
+
+    $form['form_1_email_notice_recipients_cc'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Form 1 Email Notice Recipients CC List'),
+      '#default_value' => $this->config('ised_publications.settings')
+        ->get('form_1_email_notice_recipients_cc'),
+      '#description' => $this->t('Email addresses separated by commas who should receive "carbon copy" notifications when new publications are submitted'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -44,6 +53,10 @@ class SettingsForm extends ConfigFormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     if ($form_state->getValue('form_1_email_notice_recipients') == '') {
       $form_state->setErrorByName('form_1_email_notice_recipients', $this->t('You must submit at least one email address'));
+    }
+
+    if ($form_state->getValue('form_1_email_notice_recipients_cc') == '') {
+      $form_state->setErrorByName('form_1_email_notice_recipients_cc', $this->t('You must submit at least one cc email address'));
     }
     parent::validateForm($form, $form_state);
   }
@@ -55,6 +68,11 @@ class SettingsForm extends ConfigFormBase {
     $this->config('ised_publications.settings')
       ->set('form_1_email_notice_recipients', $form_state->getValue('form_1_email_notice_recipients'))
       ->save();
+
+    $this->config('ised_publications.settings')
+      ->set('form_1_email_notice_recipients_cc', $form_state->getValue('form_1_email_notice_recipients_cc'))
+      ->save();
+
     parent::submitForm($form, $form_state);
   }
 

@@ -79,7 +79,9 @@ function ised_publications_entity_insert(Drupal\Core\Entity\EntityInterface $ent
   $bundle = $entity->bundle();
 
   if ($bundle == 'publication') {
-    $recipientsRaw = \Drupal::config('ised_publications.settings')->get('form_1_email_notice_recipients');
+
+    $recipientsTo = \Drupal::config('ised_publications.settings')->get('form_1_email_notice_recipients');
+    $recipientsCC = \Drupal::config('ised_publications.settings')->get('form_1_email_notice_recipients_cc');
 
     $subject = 'Application for ISBN and Cat. No - Demande de ISBN et de No de cat. / ICWE-BVVS3P';
     $contactPerson = $entity->field_contact_person->getString();
@@ -160,10 +162,10 @@ Has file attachment? $hasFileAttachment
   $mailManager = \Drupal::service('plugin.manager.mail');
   $module = 'ised_publications';
   $key = 'ised_publications_form_1_submit_notification'; 
-  $to = $email;
+  $to = $email . ',' . $recipientsTo;
   $params['body'] = $message;
   $params['subject'] = $subject;
-  $params['bcc'] = $recipientsRaw;
+  $params['cc'] = $recipientsCC;
 
   $langcode = 'en';
 
@@ -190,7 +192,7 @@ function ised_publications_mail($key, &$message, $params) {
 
     \Drupal::logger('ised_publications')->notice('Attempting to send mail...');
 
-      $message['headers']['bcc'] = $params['bcc'];
+      $message['headers']['cc'] = $params['cc'];
       $message['subject'] = $params['subject'];
       $message['reply-to'] = 'donotreply-drupal-nepasrepondre@ised-isde.canada.ca';
       $message['body'][] = $params['body'];
