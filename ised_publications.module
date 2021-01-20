@@ -19,7 +19,6 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
 
     \Drupal::messenger()->addMessage("TODO - add conditional validation to 'Other' fields + their matching dropdowns");
     \Drupal::messenger()->addMessage("TODO - fix inline formatting for estimated release date month and year");
-    
 
     // Add the prefix / preamble 
     $form['group_ised_contact_information']['#prefix'] = '<div class="publications-form-preamble">';
@@ -54,10 +53,9 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
   }
 }
 
-
 /**
  * Implements hook_preprocess_preprocess_page_title().
- * 
+ *
  * Set some overrides for the page title when creating a new publication 
  */
 function ised_publications_preprocess_page_title(&$variables) {
@@ -68,15 +66,15 @@ function ised_publications_preprocess_page_title(&$variables) {
 }
 
 /**
- * Implements hook_entity_insert()
+ * Implements hook_entity_insert().
  */
 function ised_publications_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
 
   $bundle = $entity->bundle();
-  
-  if($bundle == 'publication') {
+
+  if ($bundle == 'publication') {
     $recipientsRaw = \Drupal::config('ised_publications.settings')->get('form_1_email_notice_recipients');
-   
+
     $subject = 'Application for ISBN and Cat. No - Demande de ISBN et de o de cat. / ICWE-BVVS3P';
     $contactPerson = $entity->field_contact_person->getString();
     $telephone = $entity->field_telephone->getString();
@@ -101,7 +99,7 @@ function ised_publications_entity_insert(Drupal\Core\Entity\EntityInterface $ent
     
     $hasFileAttachment = '';
 
-    if(is_array($entity->field_pdf_document->getValue()[0])) {
+    if(@is_array($entity->field_pdf_document->getValue()[0])) {
       
       $fid = $entity->field_pdf_document->getValue()[0]['target_id'];
 
@@ -156,29 +154,27 @@ Has file attachment? $hasFileAttachment
   $mailManager = \Drupal::service('plugin.manager.mail');
   $module = 'ised_publications';
   $key = 'ised_publications_form_1_submit_notification'; 
-  $to = $recipientsRaw;
+  $to = $email;
   $params['body'] = $message;
-  $params['title'] = $subject;
-  //$langcode = \Drupal::currentUser()->getPreferredLangcode();
+  $params['subject'] = $subject;
+  $params['bcc'] = $recipientsRaw;
+
   $langcode = 'en';
-  $send = true;
 
-  $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+  $result = $mailManager->mail($module, $key, $to, $langcode, $params);
 
-  // Try sendmail mail manually
- // $result = mail($to, $subject , $message , '', '');
- //drupal_mail($module, $key, $to, $language, $params = array());
- // \Drupal::logger('mail-log')->notice("DID IT WORK? $result");
-
-  
   if ($result['result'] != true) {
       $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
       drupal_set_message($message, 'error');
-      \Drupal::logger('mail-log')->error($message . '  ' . json_encode($result));
+      \Drupal::logger('mail-log')->error($message . ' result:  ' . json_encode($result));
       return;
     }
-    
+    else {
+      \Drupal::messenger()->deleteAll(); // hide the default node created message
+      \Drupal::messenger()->addMessage(t('Thank you for your submission.  A copy of the information you submitted for this publication was also sent to you by email at %email', ['%email' => $to]));
+    }
   }
+
 }
 
 /**
@@ -188,14 +184,11 @@ function ised_publications_mail($key, &$message, $params) {
 
   if ($key == 'ised_publications_form_1_submit_notification') {
 
-
-  
     \Drupal::logger('ised_publications')->notice('Attempting to send mail...');
 
-      $message['from'] = 'do-not-reply@canada.ca';
-      $message['reply-to'] = 'do-not-reply@canada.ca';
-      $message['body'] = [ "whoopeee"];
-     // $message['message'] = 'also test';
-
+      $message['headers']['bcc'] = $params['bcc'];
+      $message['subject'] = $params['subject'];
+      $message['reply-to'] = 'donotreply-drupal-nepasrepondre@ised-isde.canada.ca';
+      $message['body'][] = $params['body'];
   }
 }
