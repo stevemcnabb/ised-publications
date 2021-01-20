@@ -20,6 +20,9 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
     \Drupal::messenger()->addMessage("TODO - add conditional validation to 'Other' fields + their matching dropdowns");
     \Drupal::messenger()->addMessage("TODO - fix inline formatting for estimated release date month and year");
 
+    // Bind custom validation
+    $form['#validate'][] = 'ised_publications_node_create_validation';
+
     // Add the prefix / preamble 
     $form['group_ised_contact_information']['#prefix'] = '<div class="publications-form-preamble">';
     $form['group_ised_contact_information']['#prefix'] .= '<span class="required-red-star">*</span>' . t('Indicates required information');
@@ -217,5 +220,25 @@ function ised_publications_message_grooming_handler(&$form, \Drupal\Core\Form\Fo
   }
 
   // Add back our customized publication created message
-  \Drupal::messenger()->addMessage(t('Thank you for your submission. You should receive a copy of the information you submitted by email.'));
+  \Drupal::messenger()->addMessage(t('Thank you for your submission. You will receive a copy of the information you submitted by email.'));
+}
+
+/**
+ * Custom validation functionality for node create publication form.
+ */
+function ised_publications_node_create_validation($form, &$form_state) {
+
+  // If user selects value "other" for "Choose Sector, Branch or Agency"
+  // they must also provide a string for the matching "other" field
+ if ($form_state->hasValue('field_choose_sector_branch_or_ag')) {
+
+    $branchOrAgency = $form_state->getValue('field_choose_sector_branch_or_ag')[0]['value'];
+    if ($branchOrAgency == t('Other')) {
+      $otherBranchOrAgency = $form_state->getValue('field_if_other_is_selected_indic')[0]['value'];
+      if ($otherBranchOrAgency == '') {
+        $form_state->setErrorByName('field_if_other_is_selected_indic', t('If you select "other" from the Sector, Branch or Agency dropdown you must provide a value for this field'));
+      }
+    }
+
+ }
 }
