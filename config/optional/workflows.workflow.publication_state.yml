@@ -13,6 +13,11 @@ label: 'Publication State'
 type: content_moderation
 type_settings:
   states:
+    cancelled:
+      published: false
+      default_revision: false
+      label: Cancelled
+      weight: 3
     completed:
       published: false
       default_revision: true
@@ -49,6 +54,16 @@ type_settings:
       label: 'Waiting for Registration'
       weight: -3
   transitions:
+    cancel_this_publication_request:
+      label: 'Cancel this publication request'
+      from:
+        - completed
+        - hold_no_gccn_match
+        - hold_no_record
+        - in_progress
+        - waiting_for_registration
+      to: cancelled
+      weight: 3
     draft_to_in_progress_initial_creation_:
       label: 'In Progress (initial creation)'
       from:
@@ -70,6 +85,7 @@ type_settings:
     mark_publication_as_in_progress:
       label: 'Roll Back to Publication In Progress'
       from:
+        - completed
         - published
       to: in_progress
       weight: 2
