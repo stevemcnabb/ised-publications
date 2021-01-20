@@ -1,4 +1,5 @@
-input[type=text], input[type=tel], input[type=email] {
-    width: 100%;
-
+input[type=text],
+input[type=tel],
+input[type=email] {
+  width: 100%;
 }

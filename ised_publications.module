@@ -96,14 +96,14 @@ function ised_publications_entity_insert(Drupal\Core\Entity\EntityInterface $ent
     $issn =  $entity->field_issn->getString();
     $issueNumber = $entity->field_issue_number->getString();
     $comments = $entity->field_comments->getString();
-    
+
     $hasFileAttachment = '';
 
-    if(@is_array($entity->field_pdf_document->getValue()[0])) {
-      
+    if (@is_array($entity->field_pdf_document->getValue()[0])) {
+
       $fid = $entity->field_pdf_document->getValue()[0]['target_id'];
 
-      if(is_numeric($fid) && $fid > 0) {
+      if (is_numeric($fid) && $fid > 0) {
         $file = \Drupal\file\Entity\File::load($fid);
         $hasFileAttachment = t('Yes'); 
         $hasFileAttachment .= ' (' . $file->getFilename() .')';
@@ -170,11 +170,9 @@ Has file attachment? $hasFileAttachment
       return;
     }
     else {
-      \Drupal::messenger()->deleteAll(); // hide the default node created message
       \Drupal::messenger()->addMessage(t('Thank you for your submission.  A copy of the information you submitted for this publication was also sent to you by email at %email', ['%email' => $to]));
     }
   }
-
 }
 
 /**
