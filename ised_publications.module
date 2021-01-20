@@ -50,6 +50,12 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
       $form['revision_information']['#access'] = FALSE;
       $form['moderation_state']['#access'] = FALSE;
     }
+    // Bind our custom message grooming handler
+    foreach (array_keys($form['actions']) as $action) {
+      if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+        $form['actions'][$action]['#submit'][] = 'ised_publications_message_grooming_handler';
+      }
+    }
   }
 }
 
@@ -189,4 +195,25 @@ function ised_publications_mail($key, &$message, $params) {
       $message['reply-to'] = 'donotreply-drupal-nepasrepondre@ised-isde.canada.ca';
       $message['body'][] = $params['body'];
   }
+}
+
+/**
+ * Modify the message stack to remove default content creation message.
+ */
+function ised_publications_message_grooming_handler(&$form, \Drupal\Core\Form\FormStateInterface $form_state) { // Drupal 8
+
+  $messages = \Drupal::messenger()->all();
+ 
+  // Remove all messages (but not errors)
+  \Drupal::messenger()->deleteAll();
+  foreach( $messages as $type => $msglist) {
+    if($type == 'error') { 
+      foreach($msglist as $errmsg) {
+        \Drupal::messenger()->addError($errmsg);
+      }
+    }
+  }
+
+  // Add back our customized publication created message
+  \Drupal::messenger()->addMessage(t('Thank you for your submission. You should receive a copy of the information you submitted by email.'));
 }
