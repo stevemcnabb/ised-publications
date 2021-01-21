@@ -9,4 +9,6 @@ dependencies:
   - menu_ui
   - mailsystem
   - phpmailer_smtp
+  - field_group
+  - field_permissions
 

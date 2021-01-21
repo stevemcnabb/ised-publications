@@ -239,7 +239,7 @@ function ised_publications_node_create_validation($form, &$form_state) {
         $form_state->setErrorByName('field_if_other_is_selected_indic', t('If you select "other" from the Sector, Branch or Agency dropdown you must provide a value for this field'));
       }
     }
- }
+  }
 
   // If user selects value "other" for "Language of Publication"
   // they must also provide a string for the matching
