@@ -11,4 +11,6 @@ dependencies:
   - phpmailer_smtp
   - field_group
   - field_permissions
+  - pathauto
+
 

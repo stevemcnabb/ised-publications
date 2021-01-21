@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ised_publications
+  module:
+    - language
+    - node
+id: publications
+label: Publications
+type: 'canonical_entities:node'
+pattern: 'publications/[node:title]'
+selection_criteria:
+  274d896c-e9df-41c2-9191-22e73851f614:
+    id: node_type
+    bundles:
+      publication: publication
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 274d896c-e9df-41c2-9191-22e73851f614
+  df1856ef-851b-47fd-861a-61e9e9d2f676:
+    id: language
+    langcodes:
+      en: en
+      fr: fr
+    negate: false
+    context_mapping:
+      language: 'node:langcode:language'
+    uuid: df1856ef-851b-47fd-861a-61e9e9d2f676
+selection_logic: and
+weight: -10
+relationships:
+  'node:langcode:language':
+    label: Language
+
