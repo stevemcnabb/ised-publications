@@ -239,6 +239,19 @@ function ised_publications_node_create_validation($form, &$form_state) {
         $form_state->setErrorByName('field_if_other_is_selected_indic', t('If you select "other" from the Sector, Branch or Agency dropdown you must provide a value for this field'));
       }
     }
-
  }
+
+  // If user selects value "other" for "Language of Publication"
+  // they must also provide a string for the matching
+  if ($form_state->hasValue('field_language_of_publication')) {
+
+    $languageOfPublication = $form_state->getValue('field_language_of_publication')[0]['value'];
+    if ($languageOfPublication == t('Other')) {
+      $otherLanguage =  $form_state->getValue('field_lang_of_pub_other')[0]['value'];
+      if ($otherLanguage == '') {
+        $form_state->setErrorByName('field_lang_of_pub_other', t('If you select "other" from the Language of publication dropdown, you must provide a value for this field'));
+      }
+    }
+  }
+
 }
