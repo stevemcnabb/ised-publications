@@ -104,6 +104,12 @@ type_settings:
         - completed
       to: published
       weight: 1
+    un_cancel_this_publication_and_return_to_in_progress:
+      label: 'Un-cancel this publication and return to in progress'
+      from:
+        - cancelled
+      to: in_progress
+      weight: 4
     waiting_for_registration:
       label: 'Waiting for Registration'
       from:
