@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.publication.field_this
     - field.field.node.publication.field_title_french
     - field.field.node.publication.field_type_of_publication
+    - field.field.node.publication.field_validate_email
     - node.type.publication
     - workflows.workflow.publication_state
   enforced:
@@ -39,6 +40,7 @@ third_party_settings:
         - field_contact_person
         - field_telephone
         - field_email
+        - field_validate_email
         - field_choose_sector_branch_or_ag
         - field_if_other_is_selected_indic
       parent_name: ''
@@ -77,7 +79,7 @@ third_party_settings:
         - field_anticipated_release_date_m
         - field_anticipated_release_date_y
       parent_name: group_publication_information
-      weight: 11
+      weight: 12
       format_type: details
       region: content
       format_settings:
@@ -105,13 +107,13 @@ content:
     type: options_select
     region: content
   field_choose_sector_branch_or_ag:
-    weight: 31
+    weight: 32
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_comments:
-    weight: 33
+    weight: 10
     settings:
       rows: 5
       placeholder: ''
@@ -135,7 +137,7 @@ content:
     type: email_default
     region: content
   field_if_other_is_selected_indic:
-    weight: 32
+    weight: 33
     settings:
       size: 60
       placeholder: ''
@@ -143,14 +145,6 @@ content:
     type: string_textfield
     region: content
   field_issn:
-    weight: 5
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
-  field_issue_number:
     weight: 6
     settings:
       size: 60
@@ -158,8 +152,16 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_issue_number:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_lang_of_pub_other:
-    weight: 9
+    weight: 10
     settings:
       size: 60
       placeholder: ''
@@ -167,26 +169,26 @@ content:
     type: string_textfield
     region: content
   field_language_of_publication:
-    weight: 8
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_pdf_document:
-    weight: 34
+    weight: 11
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
     region: content
   field_publication_formats:
-    weight: 10
+    weight: 11
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
     region: content
   field_series_title_english:
-    weight: 3
+    weight: 4
     settings:
       size: 60
       placeholder: ''
@@ -194,7 +196,7 @@ content:
     type: string_textfield
     region: content
   field_series_title_french:
-    weight: 4
+    weight: 5
     settings:
       size: 60
       placeholder: ''
@@ -215,7 +217,7 @@ content:
     type: options_buttons
     region: content
   field_title_french:
-    weight: 7
+    weight: 8
     settings:
       size: 60
       placeholder: ''
@@ -223,20 +225,28 @@ content:
     type: string_textfield
     region: content
   field_type_of_publication:
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
+  field_validate_email:
+    weight: 31
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+    region: content
   moderation_state:
     type: moderation_state_default
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }

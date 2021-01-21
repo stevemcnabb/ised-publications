@@ -12,7 +12,7 @@ field_name: field_email
 entity_type: node
 bundle: publication
 label: Email
-description: ''
+description: 'Please enter your email.'
 required: true
 translatable: true
 default_value: {  }

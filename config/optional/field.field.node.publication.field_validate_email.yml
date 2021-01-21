@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_validate_email
+    - node.type.publication
+id: node.publication.field_validate_email
+field_name: field_validate_email
+entity_type: node
+bundle: publication
+label: 'Validate email'
+description: 'Please re-enter your email'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

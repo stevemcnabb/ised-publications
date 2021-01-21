@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.publication.field_this
     - field.field.node.publication.field_title_french
     - field.field.node.publication.field_type_of_publication
+    - field.field.node.publication.field_validate_email
     - node.type.publication
   enforced:
     module:
@@ -59,4 +60,5 @@ hidden:
   field_this: true
   field_title_french: true
   field_type_of_publication: true
+  field_validate_email: true
   langcode: true

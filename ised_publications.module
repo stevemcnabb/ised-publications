@@ -43,6 +43,7 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
     // Tweak inline form fields so their labels appear beside the field, not beneath the field
     $form['field_contact_person']['#attributes']['class'][] = 'container-inline';
     $form['field_email']['#attributes']['class'][] = 'container-inline';
+    $form['field_validate_email']['#attributes']['class'][] = 'container-inline';
     $form['field_telephone']['#attributes']['class'][] = 'container-inline';
 
     $form['#attached']['library'][] = 'ised_publications/node_form_publication';
@@ -247,11 +248,26 @@ function ised_publications_node_create_validation($form, &$form_state) {
 
     $languageOfPublication = $form_state->getValue('field_language_of_publication')[0]['value'];
     if ($languageOfPublication == t('Other')) {
-      $otherLanguage =  $form_state->getValue('field_lang_of_pub_other')[0]['value'];
+      $otherLanguage = $form_state->getValue('field_lang_of_pub_other')[0]['value'];
       if ($otherLanguage == '') {
         $form_state->setErrorByName('field_lang_of_pub_other', t('If you select "other" from the Language of publication dropdown, you must provide a value for this field'));
       }
     }
   }
+
+  // Both email fields must match
+  if ($form_state->hasValue('field_email') && $form_state->hasValue('field_validate_email')) {
+
+      $email1 = $form_state->getValue('field_email');
+      $email2 = $form_state->getValue('field_validate_email');
+
+      if ($email1 != $email2) {
+        $form_state->setErrorByName('field_email', t('Email addresses must match'));
+        $form_state->setErrorByName('field_validate_email', t('Email addresses must match'));
+      }
+
+
+  }
+
 
 }

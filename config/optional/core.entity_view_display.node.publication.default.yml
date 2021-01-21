@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.publication.field_this
     - field.field.node.publication.field_title_french
     - field.field.node.publication.field_type_of_publication
+    - field.field.node.publication.field_validate_email
     - node.type.publication
   enforced:
     module:
@@ -28,6 +29,7 @@ dependencies:
   module:
     - file
     - options
+    - telephone
     - user
 id: node.publication.default
 targetEntityType: node
@@ -155,9 +157,10 @@ content:
   field_telephone:
     weight: 4
     label: above
-    settings: {  }
+    settings:
+      title: ''
     third_party_settings: {  }
-    type: basic_string
+    type: telephone_link
     region: content
   field_this:
     weight: 8
@@ -187,4 +190,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_validate_email: true
   langcode: true
