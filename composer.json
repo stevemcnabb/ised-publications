@@ -1,0 +1,12 @@
+{
+    "name": "steve.mcnabb/ised_publications_module",
+    "description": "ISED Publications Module",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Steve McNabb",
+            "email": "steve.mcnabb@canada.ca"
+        }
+    ],
+    "require": {}
+}
