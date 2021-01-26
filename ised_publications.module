@@ -2,7 +2,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Mail\MailManagerInterface;
-use Drupal\ised_publications\ICCAT\ICCAT_ID_Generator;
+use Drupal\ised_publications\ICCAT\IccatIdGenerator;
 
 
 /**
@@ -94,8 +94,8 @@ function ised_publications_entity_insert(Drupal\Core\Entity\EntityInterface $ent
   
   if ($bundle == 'publication') {
 
-    $generator = new ICCAT_ID_Generator();
-    $iccatId = $generator->generateID();
+    $generator = new IccatIdGenerator();
+    $iccatId = $generator->generateId();
 
     $entity->set('field_iccat_id', $iccatId);
     $entity->save();
