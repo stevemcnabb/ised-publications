@@ -118,7 +118,7 @@ function ised_publications_entity_insert(Drupal\Core\Entity\EntityInterface $ent
     $recipientsTo = \Drupal::config('ised_publications.settings')->get('form_1_email_notice_recipients');
     $recipientsCC = \Drupal::config('ised_publications.settings')->get('form_1_email_notice_recipients_cc');
 
-    $subject = 'Application for ISBN and Cat. No - Demande de ISBN et de No de cat. / ICWE-BVVS3P';
+    $subject = 'Application for ISBN and Cat. No - Demande de ISBN et de No de cat. / '. $iccatId;
     $contactPerson = $entity->field_contact_person->getString();
     $telephone = $entity->field_telephone->getString();
     $email = $entity->field_email->getString();
