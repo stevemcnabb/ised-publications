@@ -3,3 +3,14 @@ input[type=tel],
 input[type=email] {
   width: 100%;
 }
+
+.publications-form-inline {
+
+  display: inline-block;
+  
+}
+
+.publications-form-inline:last-of-type {
+  
+}
+

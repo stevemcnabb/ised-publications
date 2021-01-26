@@ -18,7 +18,7 @@ use Drupal\ised_publications\ICCAT\IccatIdGenerator;
 function ised_publications_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   // Form for creating a new publication
-  if ($form_id === 'node_publication_form') {
+  if ($form_id === 'node_publication_form' || $form_id == 'node_publication_edit_form') {
 
     \Drupal::messenger()->addMessage("TODO - fix inline formatting for estimated release date month and year");
 
@@ -48,16 +48,38 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
     $form['field_validate_email']['#attributes']['class'][] = 'container-inline';
     $form['field_telephone']['#attributes']['class'][] = 'container-inline';
 
+    // Reformat release month/year fields.
+    $form['field_anticipated_release_date_m']['widget']['#title_display'] = 'invisible';
+    $form['field_anticipated_release_date_m']['widget']['#options'][''] = t('Select a Month');
+    $form['field_anticipated_release_date_m']['#attributes']['class'][] = 'publications-form-inline';
+    
+    $form['field_anticipated_release_date_y']['widget']['#title_display'] = 'invisible';
+    $form['field_anticipated_release_date_y']['widget']['#options'][''] = t('Select a Year');
+    $form['field_anticipated_release_date_y']['#attributes']['class'][] = 'publications-form-inline';
+
+
     $form['#attached']['library'][] = 'ised_publications/node_form_publication';
 
-    // Hide the ICCAT ID 
-    $form['field_iccat_id']['#access'] = FALSE; // field gets auto generated..  
+
+
+
+
+
+    // Hide the ICCAT ID for everyone on the node creation form.
+    if($form_id == 'node_publication_form') {
+      $form['field_iccat_id']['#access'] = FALSE; // field gets auto generated..  
+    }
 
     // If user is anonymous, hide things we don't want them to see
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-    if ($user->id() == 0) {
+    if ($user->id() == 0) { // user is anonymous.
       $form['revision_information']['#access'] = FALSE;
       $form['moderation_state']['#access'] = FALSE;
+      $form['field_iccat_id']['#access'] = FALSE; // disable iccat id editing
+    }
+    else { // user is not anonymous.
+
+      $form['field_iccat_id']['#disabled'] = TRUE; // disable iccat id editing
     }
     // Bind our custom message grooming handler
     foreach (array_keys($form['actions']) as $action) {
