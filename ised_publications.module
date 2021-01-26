@@ -20,8 +20,6 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
   // Form for creating a new publication
   if ($form_id === 'node_publication_form' || $form_id == 'node_publication_edit_form') {
 
-    \Drupal::messenger()->addMessage("TODO - fix inline formatting for estimated release date month and year");
-
     // Bind custom validation
     $form['#validate'][] = 'ised_publications_node_create_validation';
 
@@ -60,14 +58,9 @@ function ised_publications_form_alter(&$form, FormStateInterface $form_state, $f
 
     $form['#attached']['library'][] = 'ised_publications/node_form_publication';
 
-
-
-
-
-
     // Hide the ICCAT ID for everyone on the node creation form.
-    if($form_id == 'node_publication_form') {
-      $form['field_iccat_id']['#access'] = FALSE; // field gets auto generated..  
+    if($form_id == 'node_publication_form' || $form_id == 'node_publication_edit_form') {
+      $form['field_iccat_id']['#disabled'] = TRUE;  
     }
 
     // If user is anonymous, hide things we don't want them to see
